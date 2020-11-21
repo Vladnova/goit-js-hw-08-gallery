@@ -68,21 +68,41 @@ function onPressModal(e) {
     if (e.code === 'Escape') {            
          onCloseModal();
     };
-    let activeIndex = bigImgUrl.dataset.index * 1;   
-    if (activeIndex < images.length -1 ) {    
-        if (e.code === 'ArrowRight') {
-            bigImgUrl.src = images[activeIndex + 1].original;
-            bigImgUrl.alt = images[activeIndex + 1].description;
-            bigImgUrl.dataset.index = activeIndex + 1;            
-        }              
-    };
-    if(activeIndex > 0){        
-        if (e.code === 'ArrowLeft') {
-            bigImgUrl.src = images[activeIndex - 1].original;
-            bigImgUrl.alt = images[activeIndex - 1].description;
-            bigImgUrl.dataset.index = activeIndex-1;
-        }   
-    };
+    let activeIndex = bigImgUrl.dataset.index * 1;    
+    if (e.code === 'ArrowRight') {
+        if (activeIndex + 1 === images.length) {
+            // activeIndex = -1; коли долистуєш до останнього фото перекидає на перше фото
+            return
+        }
+        bigImgUrl.src = images[activeIndex + 1].original;
+        bigImgUrl.alt = images[activeIndex + 1].description;
+        bigImgUrl.dataset.index = activeIndex + 1;
+    }    
+    if (e.code === 'ArrowLeft') {
+        if (activeIndex - 1 < 0) {
+            // activeIndex = 9; коли долистуєш до першого  фото перекидає на перше фото
+            return
+        }
+        bigImgUrl.src = images[activeIndex - 1].original;
+        bigImgUrl.alt = images[activeIndex - 1].description;
+        bigImgUrl.dataset.index = activeIndex - 1;
+    }
+
+    // ================Альтернатива ===========
+        // if (activeIndex < images.length -1 ) {    
+    //     if (e.code === 'ArrowRight') {
+    //         bigImgUrl.src = images[activeIndex + 1].original;
+    //         bigImgUrl.alt = images[activeIndex + 1].description;
+    //         bigImgUrl.dataset.index = activeIndex + 1;            
+    //     }              
+    // };
+    // if(activeIndex > 0){        
+    //     if (e.code === 'ArrowLeft') {
+    //         bigImgUrl.src = images[activeIndex - 1].original;
+    //         bigImgUrl.alt = images[activeIndex - 1].description;
+    //         bigImgUrl.dataset.index = activeIndex-1;
+    //     }   
+    // };
 };
 
 
